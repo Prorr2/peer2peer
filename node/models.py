@@ -13,4 +13,4 @@ class Node(models.Model):
     node_type = models.CharField(choices=NodeTypesChoice, max_length=10, default = "remote")
     trust = models.BooleanField(default=False)
     version = models.IntegerField(default = 0)
-    last_online = models.DateTimeField(default=None, null=True)
+    last_seen = models.DateTimeField(default=None, null=True)

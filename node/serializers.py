@@ -9,7 +9,7 @@ class HelloSerializer(serializers.Serializer):
 class NodeSerializer(serializers.ModelSerializer):
     class Meta:
         model = Node
-        fields = "__all__"
+        exclude = ('id',)
     def create(self, validated_data):
         if Node.objects.filter(ip = validated_data.get("ip"), port = validated_data.get("port")).exists():
             return None

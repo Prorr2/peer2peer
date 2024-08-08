@@ -13,11 +13,13 @@ class Command(BaseCommand):
         jsonPeers = json.loads(requests.get(f"http://{ip}:{port}/peers").content)["peers"]
         serializer = NodeSerializer(data = jsonPeers, many = True)
         if serializer.is_valid():
-            for peer in jsonPeers:
-                ip = peer["ip"]
-                port = peer["port"]
-                self.stdout.write(
-                    self.style.SUCCESS(f"Nodo {ip}:{port} añadido")
-                )
             data = serializer.save()
-            print(data)
+            for peer in data:
+                if peer:
+                    ip = peer["ip"]
+                    port = peer["port"]
+                    self.stdout.write(
+                        self.style.SUCCESS(f"Nodo {ip}:{port} añadido")
+                    )
+
+            

@@ -9,6 +9,7 @@ class Command(BaseCommand):
     def add_arguments(self, parser: CommandParser) -> None:
         parser.add_argument("data", nargs="+", type=str)
         parser.add_argument("--trust", type=int)
+        parser.add_argument("--remote", type=int)
         parser.add_argument("--remove", type=int)
 
 
@@ -27,7 +28,10 @@ class Command(BaseCommand):
                 if ip not in local_networks:
                     newNode = Node.objects.get_or_create(trust = trust, ip = ip, port = port)[0]
                 else:
-                    newNode = Node.objects.get_or_create(trust = trust, ip = ip, port = port, node_type = "local")[0]
+                    if options["remote"]:
+                        newNode = Node.objects.get_or_create(trust = trust, ip = ip, port = port, node_type = "remote")[0]
+                    else:
+                        newNode = Node.objects.get_or_create(trust = trust, ip = ip, port = port, node_type = "local")[0]
                 self.stdout.write(
                  self.style.WARNING("Protocolo correcto")
                 )
