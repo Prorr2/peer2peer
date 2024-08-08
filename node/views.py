@@ -14,16 +14,19 @@ def connectNode(ip, port, Node : Node):
     data = {"validator" : Node.uuid}
     requests.post(f"ip:port/hello", data)
 
-def ConnectNodeView(request):
-    form = NodeForm()
-    if request.POST:
-        form = NodeForm(request.POST)
-        if form.is_valid():
-            ip = form.cleaned_data.get("ip")
-            port = form.cleaned_data.get("port")
+# def ConnectNodeView(request):
+#     form = NodeForm()
+#     if request.POST:
+#         form = NodeForm(request.POST)
+#         if form.is_valid():
+#             ip = form.cleaned_data.get("ip")
+#             port = form.cleaned_data.get("port")
 
-            print(ip, port)
-    return render(request, "connectNode.html", {"form" : form})
+#             print(ip, port)
+#     return render(request, "connectNode.html", {"form" : form})
+
+def Running(request):
+    return HttpResponse("Node Running")
 
 class HelloProtocolAPI(APIView):
     def get(self, request):
